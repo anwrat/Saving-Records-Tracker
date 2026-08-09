@@ -19,3 +19,14 @@ model User{
   phone Int
   createdAt DateTime @default(now())
 }
+
+model Members{
+  id String @id @default(uuid())
+  name String
+  email String? @unique
+  armyNo Int @unique
+  phone Int
+  address String
+  createdAt DateTime @default(now())
+}
+
