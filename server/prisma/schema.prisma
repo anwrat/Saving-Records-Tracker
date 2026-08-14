@@ -24,9 +24,71 @@ model Members{
   id String @id @default(uuid())
   name String
   email String? @unique
-  armyNo Int @unique
-  phone Int
+  armyNo String @unique
+  phone String
   address String
+  createdAt DateTime @default(now())
+
+  savingTransactions SavingTransactions[]
+  loans Loans[]
+}
+
+enum TransactionType{
+  DEPOSIT
+  WITHDRAWAL
+  INTEREST
+}
+
+model SavingTransactions{
+  id String @id @default(uuid())
+  memberId String // Foreign key scalar matches Members.id type
+  member Members @relation(fields: [memberId], references: [id]) // Relation field
+  type TransactionType
+  amount Decimal
+  transactionDate DateTime @default(now())
+  description String?
+  createdAt DateTime @default(now())
+}
+
+enum LoanStatus{
+  PENDING
+  ACTIVE
+  COMPLETED
+}
+
+model Loans{
+  id String @id @default(uuid())
+  memberId String // Foreign key scalar matches Members.id type
+  member Members @relation(fields: [memberId], references: [id]) // Relation field
+  principalAmount Decimal
+  interestRate Decimal
+  startDate DateTime @default(now())
+  dueDate DateTime
+  status LoanStatus @default(PENDING)
+  createdAt DateTime @default(now())
+
+  repayments LoanRepayments[]
+}
+
+model LoanRepayments{
+  id String @id @default(uuid())
+  loanId String
+  loan Loans @relation(fields: [loanId], references: [id])
+  amount Decimal
+  paymentDate DateTime @default(now())
+  description String?
+  createdAt DateTime @default(now())
+}
+
+enum InterestRateType{
+  SAVINGS
+  LOAN
+}
+
+model InterestRate{
+  id String @id @default(uuid())
+  type InterestRateType
+  rate Decimal
   createdAt DateTime @default(now())
 }
 
