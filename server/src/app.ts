@@ -4,6 +4,7 @@ import helmet from "helmet";
 import { errorHandler } from "./middlewares/error.middleware";
 import userRouter from "./routes/user.routes";
 import memberRouter from "./routes/member.routes";
+import transactionRouter from "./routes/transaction.route";
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/members", memberRouter);
+app.use("/api/transactions", transactionRouter);
 
 //Global middleware should be after routes
 app.use(errorHandler);

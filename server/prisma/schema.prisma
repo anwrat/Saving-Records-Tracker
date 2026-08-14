@@ -35,8 +35,8 @@ model Members{
 
 enum TransactionType{
   DEPOSIT
-  WITHDRAWAL
-  INTEREST
+  WITHDRAWAL //This is for when a member withdraws their saving, not a loan
+  INTEREST //Interest earned by members on their savings
 }
 
 model SavingTransactions{
