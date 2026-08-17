@@ -1,13 +1,16 @@
 import { Outlet } from "react-router";
+import Navbar from "../components/Navbar";
 
 const DashboardLayout = () => {
   return (
-    <div>
-      <header>Saving Group Management</header>
+    <div className="min-h-screen bg-gray-50">
+      <div className="flex min-h-screen">
+        <Navbar />
 
-      <main>
-        <Outlet />
-      </main>
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
